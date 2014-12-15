@@ -17,6 +17,14 @@ gem 'rails-assets-bootstrap-sass-official'
 
 gem 'nokogiri'
 
+gem "foreman"
+group :production, :staging do
+  gem "unicorn"
+  gem "rails_12factor"
+  gem "rails_stdout_logging"
+  gem "rails_serve_static_assets"
+end
+
 group :development, :test do
   gem 'spring'
   gem 'pry-rails'
