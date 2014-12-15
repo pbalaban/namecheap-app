@@ -16,6 +16,8 @@ gem 'rails-assets-jquery-ujs'
 gem 'rails-assets-bootstrap-sass-official'
 
 gem 'nokogiri'
+gem "rails_config"
+gem 'sidekiq', '~> 3.0'
 
 gem "foreman"
 group :production, :staging do

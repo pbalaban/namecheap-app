@@ -1,0 +1,7 @@
+redis:
+  client:
+    size: 1
+    namespace: 'namecheap'
+  server:
+    size: 5
+    namespace: 'namecheap'
