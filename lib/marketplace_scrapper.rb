@@ -19,4 +19,22 @@ module MarketplaceScrapper
 
     # document
   end
+
+  def self.listing_info url
+    document = Nokogiri::HTML(open(url))
+    dates = document.css('table.default-table tbody td')
+
+    return {} if dates.blank?
+
+    {
+      listed_on: parse_date(dates[0]),
+      closing_on: parse_date(dates[1]),
+      expires_on: parse_date(dates[2])
+    }
+  end
+
+  def self.parse_date nokogiri_el
+    return nil if nokogiri_el.blank?
+    DateTime.strptime("#{nokogiri_el.text.gsub(/\s{2,}/, ' ')} -05", "%b %d, %Y %I:%M %p %Z")
+  end
 end
