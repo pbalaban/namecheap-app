@@ -15,6 +15,8 @@ gem 'rails-assets-jquery'
 gem 'rails-assets-jquery-ujs'
 gem 'rails-assets-bootstrap-sass-official'
 
+gem 'nokogiri'
+
 group :development, :test do
   gem 'spring'
   gem 'pry-rails'

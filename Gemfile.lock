@@ -70,8 +70,11 @@ GEM
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
     mime-types (2.4.3)
+    mini_portile (0.6.1)
     minitest (5.5.0)
     multi_json (1.10.1)
+    nokogiri (1.6.5)
+      mini_portile (~> 0.6.0)
     pg (0.17.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -148,6 +151,7 @@ DEPENDENCIES
   binding_of_caller
   coffee-rails (~> 4.0.0)
   haml-rails
+  nokogiri
   pg
   pry-nav
   pry-rails
