@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %title Namecheap scrapper
+    = stylesheet_link_tag    :application, media: 'all'
+    = javascript_include_tag :application
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          = link_to 'Home', root_path, class: 'navbar-brand'
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li
+              = link_to 'Other link', root_path
+
+    .container#main
+      = yield

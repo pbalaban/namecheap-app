@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: joss
+  password:
+
+development:
+  <<: *default
+  database: namecheap-app_development
+
+test:
+  <<: *default
+  database: namecheap-app_test
+
+production:
+  <<: *default
+  database: namecheap-app_production
+  username: namecheap-app
+  password: <%= ENV['NAMECHEAP-APP_DATABASE_PASSWORD'] %>
