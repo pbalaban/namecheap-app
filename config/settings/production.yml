@@ -1,0 +1,8 @@
+sendgrid:
+  user_name: 'from_env'
+  password: 'from_env'
+  domain: 'heroku.com'
+  address: 'smtp.sendgrid.net'
+  port: 587
+  authentication: 'plain'
+  enable_starttls_auto: true

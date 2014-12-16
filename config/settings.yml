@@ -6,16 +6,6 @@ redis:
     size: 5
     namespace: 'namecheap'
 
-sendgrid:
-  user_name: 'from_env'
-  password: 'from_env'
-  domain: 'heroku.com'
-  address: 'smtp.sendgrid.net'
-  port: 587
-  authentication: 'plain'
-  enable_starttls_auto: true
-
-
 exception_notification:
   email_config:
     email_prefix: "[Namecheap App]"
