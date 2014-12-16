@@ -7,12 +7,10 @@ class DomainMarketplaceWorker
   sidekiq_options retry: false
 
   def perform
-    domains = listings.each_with_object([]) do |listing, memo|
-      memo << domain_attributes(listing)
-    end
-
-    Domain.create(domains).each do |domain|
-      DomainListingInfoWorker.perform_async(domain.id)
+    listings.each do |listing|
+      attrs = domain_attributes(listing)
+      domain = Domain.find_by(name: attrs[:name]) || Domain.create(attrs)
+      DomainListingInfoWorker.perform_async(domain.id) unless domain.active?
     end
   end
 

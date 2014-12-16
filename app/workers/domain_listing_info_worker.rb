@@ -8,6 +8,8 @@ class DomainListingInfoWorker
 
   def perform domain_id
     @domain = Domain.find(domain_id)
+    return if @domain.active?
+
     @domain.update(listing_info)
   end
 
@@ -23,7 +25,7 @@ class DomainListingInfoWorker
   def listing_info
     return {} if dates.blank?
 
-    LISTING_DATES.each.with_index.with_object({}) do |(date_name, idx), memo|
+    LISTING_DATES.each.with_index.with_object(active: true) do |(date_name, idx), memo|
       memo[date_name] = Timeliness.parse(dates[idx].text.to_s.sanitize_spaces)
     end
   end

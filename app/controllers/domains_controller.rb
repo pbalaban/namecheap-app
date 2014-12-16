@@ -1,5 +1,5 @@
 class DomainsController < ApplicationController
   def index
-    @domains = Domain.all
+    @domains = Domain.active.load
   end
 end
