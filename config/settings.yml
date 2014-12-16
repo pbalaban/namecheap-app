@@ -5,3 +5,10 @@ redis:
   server:
     size: 5
     namespace: 'namecheap'
+
+exception_notification:
+  email_config:
+    email_prefix: "[Namecheap App]"
+    sender_address: "'Notifier' <notifier@example.com>"
+    exception_recipients:
+      - balaban.petr@gmail.com

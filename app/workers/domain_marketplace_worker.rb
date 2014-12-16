@@ -4,6 +4,6 @@ class DomainMarketplaceWorker
   sidekiq_options retry: false
 
   def perform
-    p 'I am DomainMarketplaceWorker'
+    raise 'I am failed DomainMarketplaceWorker'
   end
 end
