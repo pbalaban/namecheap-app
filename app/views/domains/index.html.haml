@@ -13,7 +13,7 @@
     - @domains.each do |domain|
       %tr
         %td= link_to domain.name, domain.listing_url, target: :_blank
-        %td= domain.listed_on.in_time_zone('EST').strftime('%b %d, %Y %I:%M %p EST')
-        %td= domain.closing_on.in_time_zone('EST').strftime('%b %d, %Y %I:%M %p EST')
-        %td= domain.expires_on.in_time_zone('EST').strftime('%b %d, %Y %I:%M %p EST')
+        %td= domain.listed_on.try(:strftime, '%b %d, %Y %I:%M %p EST')
+        %td= domain.closing_on.try(:strftime, '%b %d, %Y %I:%M %p EST')
+        %td= domain.expires_on.try(:strftime, '%b %d, %Y %I:%M %p EST')
         %td= number_to_currency domain.price
