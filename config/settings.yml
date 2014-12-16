@@ -9,6 +9,6 @@ redis:
 exception_notification:
   email_config:
     email_prefix: "[Namecheap App]"
-    sender_address: "'Notifier' <notifier@example.com>"
+    sender_address: "'Notifier' <notifier@app32547894.mailgun.org>"
     exception_recipients:
       - balaban.petr@gmail.com
