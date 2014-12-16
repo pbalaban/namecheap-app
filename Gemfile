@@ -19,6 +19,7 @@ gem 'nokogiri'
 gem "rails_config"
 gem 'sidekiq', '~> 3.0'
 gem 'exception_notification'
+gem 'timeliness'
 
 gem "foreman"
 group :production, :staging do
