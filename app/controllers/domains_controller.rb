@@ -1,5 +1,5 @@
 class DomainsController < ApplicationController
   def index
-    @domains = Domain.active.load
+    @domains = Domain.order(:closing_on).page params[:page]
   end
 end
