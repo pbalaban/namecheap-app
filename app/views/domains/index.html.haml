@@ -15,7 +15,7 @@
       %tr
         %td= link_to domain.name, domain.listing_url, target: :_blank
         %td= domain.tld
-        %td= domain.listed_on.try(:strftime, '%b %d, %Y %I:%M %p EST')
-        %td= domain.closing_on.try(:strftime, '%b %d, %Y %I:%M %p EST')
-        %td= domain.expires_on.try(:strftime, '%b %d, %Y %I:%M %p EST')
+        %td= date_tooltip_for(domain.listed_on)
+        %td= date_closing_tooltip_for(domain.closing_on)
+        %td= date_tooltip_for(domain.expires_on)
         %td= number_to_currency domain.price
