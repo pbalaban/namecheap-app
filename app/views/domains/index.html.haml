@@ -10,12 +10,16 @@
       %th Closing On
       %th Domain Expires
       %th Price
+      %th User
+      %th Categories
   %tbody
     - @domains.each do |domain|
       %tr
-        %td= link_to domain.name, domain.listing_url, target: :_blank
+        %td= external_link_to domain.name, domain.listing_url
         %td= domain.tld
         %td= date_tooltip_for(domain.listed_on)
         %td= date_closing_tooltip_for(domain.closing_on)
         %td= date_tooltip_for(domain.expires_on)
         %td= number_to_currency domain.price
+        %td= remote_link_to_user_for domain.remote_user
+        %td= domain.categories.map{ |category| remote_link_to_category_for(category) }.join(', ').html_safe

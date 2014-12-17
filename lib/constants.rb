@@ -1,6 +1,8 @@
 module Constants
   ## URLs
   BASE_HOST = 'https://www.namecheap.com'
+  MARKETPLACE_BY_USER_URL = "#{BASE_HOST}/domains/marketplace/buy-domains.aspx?sellerusername=%ID%"
+  MARKETPLACE_BY_CATEGORY_URL = "#{BASE_HOST}/domains/marketplace/buy-domains.aspx?CategoryId=%ID%"
   MARKETPLACE_INDEX_URL = "#{BASE_HOST}/domains/marketplace/buy-domains.aspx"
   MARKETPLACE_URL = %{#{BASE_HOST}/domains/marketplace/buy-domains.aspx
     ?page=%PAGE%

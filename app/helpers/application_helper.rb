@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Constants
+
   def date_tooltip_for date
     return nil if date.blank?
 
@@ -17,5 +19,20 @@ module ApplicationHelper
       opts = { toggle: :tooltip, title: 'Today' }
       content_tag(:span, date.strftime('%I:%M %p'), data: opts)
     end
+  end
+
+  def external_link_to title, url
+    icon = content_tag(:i, nil, class: 'fa fa-external-link')
+    [title, link_to(icon, url, target: :_blank)].join(' ').html_safe
+  end
+
+  def remote_link_to_category_for category
+    url = MARKETPLACE_BY_CATEGORY_URL.gsub(/%\w*%/, '%ID%' => category.remote_id)
+    external_link_to category.name, url
+  end
+
+  def remote_link_to_user_for remote_user
+    url = MARKETPLACE_BY_USER_URL.gsub(/%\w*%/, '%ID%' => remote_user)
+    external_link_to remote_user, url
   end
 end
