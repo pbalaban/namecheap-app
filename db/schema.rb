@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20141217200112) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active",                              default: false, null: false
+    t.string   "remote_user"
   end
 
 end
