@@ -1,4 +1,8 @@
 class Domain < ActiveRecord::Base
+  ## Associations
+  has_many :category_domains
+  has_many :categories, through: :category_domains
+
   # ## Callbacks
   before_save :set_tld
 
