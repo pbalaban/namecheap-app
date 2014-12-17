@@ -18,6 +18,7 @@ gem 'rails-assets-bootstrap-sass-official'
 gem 'nokogiri'
 gem "rails_config"
 gem 'sidekiq', '~> 3.0'
+gem 'sinatra', '>= 1.3.0', require: nil ## Sidekiq monitor use sinatra
 gem 'exception_notification'
 gem 'timeliness'
 gem 'mailgun_rails'
