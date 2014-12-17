@@ -18,7 +18,7 @@ class DomainMarketplaceWorker
     1.upto(50) do |current_page|
       search_params.merge!('%PAGE%' => current_page)
 
-      url = open([BASE_HOST, MARKETPLACE_PATH].join.gsub(/%\w*%/, search_params))
+      url = open(MARKETPLACE_URL.gsub(/%\w*%/, search_params))
       document = Nokogiri::HTML(url)
       listings = document.css(INDEX_ENTRY_SELECTOR)
 

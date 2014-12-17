@@ -1,8 +1,8 @@
 module Constants
   ## URLs
   BASE_HOST = 'https://www.namecheap.com'
-  MARKETPLACE_INDEX_PATH = '/domains/marketplace/buy-domains.aspx'
-  MARKETPLACE_PATH = %{/domains/marketplace/buy-domains.aspx
+  MARKETPLACE_INDEX_URL = "#{BASE_HOST}/domains/marketplace/buy-domains.aspx"
+  MARKETPLACE_URL = %{#{BASE_HOST}/domains/marketplace/buy-domains.aspx
     ?page=%PAGE%
     &size=100
     &SortExpression=Expiry_ASC
