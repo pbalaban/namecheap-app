@@ -122,6 +122,7 @@ GEM
       sprockets-rails (~> 2.0)
     rails-assets-bootstrap-sass-official (3.3.1)
       rails-assets-jquery (>= 1.9.0)
+    rails-assets-font-awesome (4.2.0)
     rails-assets-jquery (2.1.1)
     rails-assets-jquery-ujs (1.0.2)
       rails-assets-jquery (> 1.8)
@@ -214,6 +215,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.1.8)
   rails-assets-bootstrap-sass-official
+  rails-assets-font-awesome
   rails-assets-jquery
   rails-assets-jquery-ujs
   rails_12factor
