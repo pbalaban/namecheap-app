@@ -3,6 +3,9 @@ class Domain < ActiveRecord::Base
   has_many :category_domains
   has_many :categories, through: :category_domains
 
+  ## Validations
+  validates :name, presence: true
+
   # ## Callbacks
   before_save :set_tld
 

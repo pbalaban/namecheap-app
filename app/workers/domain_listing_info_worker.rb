@@ -9,6 +9,7 @@ class DomainListingInfoWorker
   def perform domain_id
     @domain = Domain.find(domain_id)
     return if @domain.active?
+    raise 'Domain listing_url is blank' unless @domain.listing_url
 
     @domain.update(listing_info)
   end
@@ -29,7 +30,7 @@ class DomainListingInfoWorker
     categories_element  = document.css(SHOW_CATEGORIES_SELECTOR)
     category_ids        = categories_element.map do |element|
       Category.where(name: element.text).
-        find_or_create_by(remote_id: element.attr('href')[/\d+/]).try(:id)
+        find_or_create_by(remote_id: element.attr('href')[/\d+/]).id
     end
     attrs = {
       active: true,

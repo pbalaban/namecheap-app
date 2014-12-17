@@ -41,10 +41,13 @@ class DomainMarketplaceWorker
     price_element = listing_element.css(INDEX_PRICE_SELECTOR)
     closing_on_element = listing_element.css(INDEX_CLOSING_ON_SELECTOR)
 
+    listing_path = name_element.try(:attr, 'href').try(:value)
+    closing_on_text = closing_on_element.first.next.text.strip
+
     {
       name: name_element.text.strip,
-      listing_url: [BASE_HOST, name_element.attr('href').value].join,
-      closing_on: Timeliness.parse(closing_on_element.first.next.text.strip, format: 'mmm dd, yyyy') || 1.hour.since,
+      listing_url: listing_path ? [BASE_HOST, listing_path].join : nil,
+      closing_on: Timeliness.parse(closing_on_text) || 1.hour.since,
       price: price_element.text.remove_dollar
     }
   end
