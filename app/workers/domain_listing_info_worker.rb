@@ -29,7 +29,7 @@ class DomainListingInfoWorker
     categories_element  = document.css(SHOW_USER_SELECTOR)
     category_ids        = categories_element.map do |element|
       Category.where(name: element.text).
-        find_or_create_by(remote_id: element.attr('href')[/\d+/]).id
+        find_or_create_by(remote_id: element.attr('href')[/\d+/]).try(:id)
     end
     attrs = {
       active: true,
