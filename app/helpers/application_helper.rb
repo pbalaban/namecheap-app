@@ -26,12 +26,16 @@ module ApplicationHelper
     [title, link_to(icon, url, target: :_blank)].join(' ').html_safe
   end
 
-  def remote_link_to_category_for category
-    url = MARKETPLACE_BY_CATEGORY_URL.gsub(/%\w*%/, '%ID%' => category.remote_id)
-    external_link_to category.name, url
+  def external_link_to_categories_for domain
+    domain.categories.map do |category|
+      url = MARKETPLACE_BY_CATEGORY_URL.gsub(/%\w*%/, '%ID%' => category.remote_id)
+      external_link_to category.name, url
+    end.join(', ').html_safe
   end
 
-  def remote_link_to_user_for remote_user
+  def external_link_to_user_for remote_user
+    return nil if remote_user.blank?
+
     url = MARKETPLACE_BY_USER_URL.gsub(/%\w*%/, '%ID%' => remote_user)
     external_link_to remote_user, url
   end
