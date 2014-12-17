@@ -26,7 +26,7 @@ class DomainListingInfoWorker
     return {} if dates.blank?
 
     remote_user_element = document.css(SHOW_USER_SELECTOR)
-    categories_element  = document.css(SHOW_USER_SELECTOR)
+    categories_element  = document.css(SHOW_CATEGORIES_SELECTOR)
     category_ids        = categories_element.map do |element|
       Category.where(name: element.text).
         find_or_create_by(remote_id: element.attr('href')[/\d+/]).try(:id)
