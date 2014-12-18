@@ -4,7 +4,7 @@ class DomainMarketplaceWorker
   include Constants
   include Sidekiq::Worker
 
-  sidekiq_options retry: false
+  sidekiq_options retry: false, queue: :market
 
   def perform
     search_params = {

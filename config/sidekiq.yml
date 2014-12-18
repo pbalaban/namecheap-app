@@ -1,0 +1,11 @@
+---
+:concurrency: 5
+:pidfile: tmp/pids/sidekiq.pid
+:queues:
+  - [market, 1]
+  - [listing_info, 4]
+production:
+  :concurrency: 10
+  :queues:
+    - [market, 1]
+    - [listing_info, 9]

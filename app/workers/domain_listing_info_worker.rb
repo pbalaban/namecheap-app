@@ -4,7 +4,7 @@ class DomainListingInfoWorker
   include Constants
   include Sidekiq::Worker
 
-  sidekiq_options retry: false
+  sidekiq_options retry: false, queue: :listing_info
 
   def perform domain_id
     @domain = Domain.find(domain_id)
