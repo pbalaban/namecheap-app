@@ -38,7 +38,7 @@ guard :bundler do
   watch('Gemfile')
 end
 
-guard 'rails' do
+guard 'rails', server: 'unicorn' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end

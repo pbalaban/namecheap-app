@@ -30,6 +30,8 @@ group :production do
 end
 
 group :development do
+  gem 'unicorn-rails'
+
   gem 'guard-sidekiq', require: false
   gem 'guard-rails', require: false
   gem 'guard-bundler', require: false
@@ -38,8 +40,6 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-nav'
-
-  gem 'thin'
 
   gem 'better_errors'
   gem 'binding_of_caller'
