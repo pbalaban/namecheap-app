@@ -33,6 +33,12 @@ group :production, :staging do
   gem "rails_serve_static_assets"
 end
 
+group :development do
+  gem 'guard-sidekiq', require: false
+  gem 'guard-rails', require: false
+  gem 'guard-bundler', require: false
+end
+
 group :development, :test do
   gem 'spring'
   gem 'pry-rails'
