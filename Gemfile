@@ -32,6 +32,13 @@ end
 group :development do
   gem 'unicorn-rails'
 
+  gem 'capistrano', '~> 3.3.0'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano3-unicorn'
+  gem 'capistrano-sidekiq'
+
   gem 'guard-sidekiq', require: false
   gem 'guard-rails', require: false
   gem 'guard-bundler', require: false

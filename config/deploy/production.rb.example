@@ -1,0 +1,8 @@
+server 'example',
+  user: 'user',
+  roles: %w{web app db},
+  ssh_options: {
+    keys: %w(path/to/ssh_key),
+    forward_agent: true,
+    auth_methods: %w(publickey)
+  }

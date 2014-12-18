@@ -12,3 +12,11 @@ exception_notification:
     sender_address: "'Notifier' <notifier@app32547894.mailgun.org>"
     exception_recipients:
       - balaban.petr@gmail.com
+
+mailgun:
+  authentication: plain
+  address: smtp.mailgun.org
+  port: 587
+  domain: app32547894.mailgun.org
+  user_name: postmaster@app32547894.mailgun.org
+  password: replace_me
