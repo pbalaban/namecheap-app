@@ -17,7 +17,7 @@ gem 'rails-assets-bootstrap-sass-official'
 gem 'rails-assets-font-awesome'
 
 gem 'nokogiri'
-gem "rails_config"
+gem 'rails_config'
 gem 'sidekiq', '~> 3.0'
 gem 'sinatra', '>= 1.3.0', require: nil ## Sidekiq monitor use sinatra
 gem 'exception_notification'
@@ -25,12 +25,8 @@ gem 'timeliness'
 gem 'mailgun_rails'
 gem 'kaminari'
 
-gem "foreman"
-group :production, :staging do
-  gem "unicorn"
-  gem "rails_12factor"
-  gem "rails_stdout_logging"
-  gem "rails_serve_static_assets"
+group :production do
+  gem 'unicorn'
 end
 
 group :development do
@@ -40,10 +36,11 @@ group :development do
 end
 
 group :development, :test do
-  gem 'spring'
   gem 'pry-rails'
   gem 'pry-nav'
+
   gem 'thin'
+
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
