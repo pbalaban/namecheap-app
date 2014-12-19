@@ -1,7 +1,7 @@
 app_path = '/var/www/namecheap-app'
 shared_path = "#{app_path}/shared"
 
-worker_processes 4
+worker_processes 2
 working_directory "#{app_path}/current"
 listen "#{shared_path}/namecheap-app.sock", backlog: 128
 timeout 30
