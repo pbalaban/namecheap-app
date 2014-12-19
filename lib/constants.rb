@@ -8,8 +8,8 @@ module Constants
     ?page=%PAGE%
     &size=100
     &SortExpression=Expiry_ASC
-    &minpricerange=%MINPRICERANGE%
-    &maxpricerange=%MAXPRICERANGE%
+    &priceRange=%MINPRICERANGE%:%MAXPRICERANGE%
+    &keyword=%KEYWORD%
   }.gsub(/\s+/, '')
 
   ## Selectors
