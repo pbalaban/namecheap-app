@@ -11,6 +11,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push(*%w{bin log tmp/pids tmp/cache tm
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :restart do
-    invoke 'unicorn:restart'
+    invoke 'unicorn:legacy_restart'
   end
 end
