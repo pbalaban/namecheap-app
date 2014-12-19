@@ -31,7 +31,7 @@ end
 
 guard 'sidekiq', environment: 'development', config: 'config/sidekiq.yml', concurrency: 5, verbose: false do
   watch(%r{^app/workers/(.+)\.rb$})
-  watch('config/sidekiq.yml')
+  watch(%r{^(config|lib)/.*})
 end
 
 guard :bundler do
