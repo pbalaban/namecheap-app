@@ -1,0 +1,16 @@
+.top-filter.clearfix
+  .pull-left
+    .well.well-sm.pull-left
+      Total
+      %span.badge= @total_count
+    .well.well-sm.pull-left
+      Filtered
+      - if params[:domain_search]
+        = link_to '(reset)', root_path
+      %span.badge= @filtered_count
+
+  .pull-right
+    - csv_download_opts = { format: :csv }.merge params.slice(:domain_search)
+    = link_to 'Download CSV', domains_path(csv_download_opts), class: 'btn btn-success'
+  .pull-right
+    = paginate @domains

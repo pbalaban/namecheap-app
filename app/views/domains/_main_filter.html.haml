@@ -1,0 +1,16 @@
+.main-filter.panel.panel-primary
+  .panel-heading
+    .title{ class: (:hidden if params[:domain_search]) } Show filter
+    .title{ class: (:hidden unless params[:domain_search]) } Hide filter
+  .panel-body{ class: (:hidden unless params[:domain_search]) }
+    = form_for @search, url: root_path, method: :get, role: :form do |f|
+      .form-group
+        = f.label :tld, "Tld:"
+        - @search.all_tld.each do |name|
+          %span.tld-item
+            - check_box_opts = { id: "tld_#{name}", class: :hidden, multiple: true }
+            = f.check_box :tld, check_box_opts, name, nil
+            %label.btn.btn-xs.btn-primary{ type: :button, for: "tld_#{name}" }= name
+
+      .form-group
+        = f.submit 'Search', class: 'btn btn-info pull-right'

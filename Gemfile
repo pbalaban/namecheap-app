@@ -24,6 +24,7 @@ gem 'exception_notification'
 gem 'timeliness'
 gem 'mailgun_rails'
 gem 'kaminari'
+gem 'searchlight'
 
 group :production do
   gem 'unicorn'

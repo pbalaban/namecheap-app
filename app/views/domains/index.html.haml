@@ -1,7 +1,7 @@
-= link_to 'Download CSV', domains_path(format: :csv), class: 'btn btn-success'
+= render 'top_filter'
+= render 'main_filter'
 
 %table.table.table-striped
-  %caption= paginate @domains
   %thead
     %tr
       %th Domain name
