@@ -25,4 +25,14 @@ module Constants
 
   ## Other
   LISTING_DATES = %i[listed_on closing_on expires_on]
+  DOMAIN_CSV_HEADER = [
+    'Name', 'Tld', 'Price',
+    'Closing on', 'Listed on', 'Expires on',
+    'Remote user', 'Categories', 'Remote url'
+  ]
+  DOMAIN_CSV_ATTRS = %i[
+    name tld formatted_price
+    formatted_closing_on formatted_listed_on formatted_expires_on
+    remote_user category_names listing_url
+  ]
 end
