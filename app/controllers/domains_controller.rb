@@ -12,8 +12,9 @@ class DomainsController < ApplicationController
         filename  = "domains-#{DateTime.current.strftime('%b-%d-%Y-%I-%M%p')}"
         file_path = @search.results.generate_csv_file
         send_file file_path,
+          filename: "#{filename}.csv",
           type: 'text/csv; charset=UTF-8; header=present',
-          disposition: "attachment;filename='#{filename}.csv'"
+          disposition: "attachment"
       end
     end
   end
