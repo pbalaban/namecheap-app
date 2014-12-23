@@ -21,9 +21,14 @@ module ApplicationHelper
     end
   end
 
+  def join_fa_icon content, icon_class, url = nil, link_opts = {}
+    icon = content_tag(:i, nil, class: "fa #{icon_class}")
+    link_or_icon = url ? link_to(icon, url, link_opts) : icon
+    [content, link_or_icon].join(' ').html_safe
+  end
+
   def external_link_to title, url
-    icon = content_tag(:i, nil, class: 'fa fa-external-link')
-    [title, link_to(icon, url, target: :_blank)].join(' ').html_safe
+    join_fa_icon title, 'fa-external-link', url, target: :_blank
   end
 
   def external_link_to_categories_for domain
