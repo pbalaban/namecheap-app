@@ -1,6 +1,6 @@
 class DomainSearch < Searchlight::Search
   search_on Domain.active.includes(:categories)
-  searches :tld, :order_attr, :order_dir
+  searches :tld, :query, :order_attr, :order_dir
 
   def tld
     Array(super) & self.all_tld
@@ -16,6 +16,10 @@ class DomainSearch < Searchlight::Search
 
   def search_tld
     search.where(tld: tld)
+  end
+
+  def search_query
+    search.filter_by_query(query)
   end
 
   def search_order_attr

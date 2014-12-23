@@ -19,6 +19,8 @@ class Domain < ActiveRecord::Base
   scope :active, ->{ opened.where(active: true) }
   scope :inactive, ->{ where active: false }
 
+  scope :filter_by_query, ->(query){ where('name LIKE :query', query: "%#{query}%") }
+
   def self.generate_csv_file
     domains = self.all
     path = Tempfile.new('namecheap_app')

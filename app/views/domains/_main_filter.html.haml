@@ -7,6 +7,9 @@
       .form-group
         = f.hidden_field :order_attr
         = f.hidden_field :order_dir
+      .form-group
+        = f.label :query, 'Query: '
+        = f.text_field :query
       .form-group.clearfix.checkbox
         - @search.all_tld.each do |name|
           .tld-item.pull-left
