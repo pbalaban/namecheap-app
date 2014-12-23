@@ -7,12 +7,12 @@
       .form-group
         = f.hidden_field :order_attr
         = f.hidden_field :order_dir
-      .form-group.clearfix
+      .form-group.clearfix.checkbox
         - @search.all_tld.each do |name|
           .tld-item.pull-left
-            - check_box_opts = { id: "tld_#{name}", class: :hidden, multiple: true }
-            = f.check_box :tld, check_box_opts, name, nil
-            %label.btn.btn-xs.btn-primary{ type: :button, for: "tld_#{name}" }= name
+            %label
+              = f.check_box :tld, { multiple: true }, name, nil
+              = name
 
       .form-group
         = f.submit 'Search', class: 'btn btn-info pull-right'
