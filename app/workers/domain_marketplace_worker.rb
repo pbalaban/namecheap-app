@@ -32,7 +32,7 @@ class DomainMarketplaceWorker
           document_ids << (Domain.find_by(name: attrs[:name]) || Domain.create(attrs)).id
         end
       end
-      document_ids.each{ |id| DomainListingInfoWorker.perform_async(id) }
+      document_ids.compact.each{ |id| DomainListingInfoWorker.perform_async(id) }
 
       return if document.css(INDEX_NEXT_PAGE_SELECTOR).blank?
     end

@@ -25,6 +25,7 @@ module Constants
 
   ## Other
   LISTING_DATES = %i[listed_on closing_on expires_on]
+  USED_TLD  = %w(com net org)
   DOMAIN_CSV_HEADER = [
     'Name', 'Tld', 'Price',
     'Closing on', 'Listed on', 'Expires on',

@@ -23,10 +23,7 @@ class DomainSearch < Searchlight::Search
   end
 
   def all_tld
-    top_items = %w(com net org)
-    @all_tld ||= Domain.active.distinct.pluck(:tld).sort_by do |e|
-      top_items.index(e) || top_items.size
-    end
+    @all_tld ||= Domain.active.distinct.pluck(:tld)
   end
 
   def reverse_order_dir_for attr

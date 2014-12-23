@@ -8,9 +8,10 @@ class Domain < ActiveRecord::Base
 
   ## Validations
   validates :name, presence: true
+  validates :tld, presence: true, inclusion: { in: USED_TLD }
 
   # ## Callbacks
-  before_save :set_tld
+  before_validation :set_tld, on: :create
 
   ## Scopes
   scope :opened, ->{ where("closing_on >= :now", now: DateTime.current) }
@@ -53,6 +54,6 @@ class Domain < ActiveRecord::Base
 
   private
   def set_tld
-    self.tld = self.name.to_s.split('.')[1..-1].join('.')
+    self.tld = self.name.to_s.split('.')[1..-1].try(:join, '.')
   end
 end
