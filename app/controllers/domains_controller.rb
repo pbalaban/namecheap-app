@@ -22,7 +22,7 @@ class DomainsController < ApplicationController
   def search_params
     begin
       params.require(:domain_search).permit({ tld: [] },
-        :order_dir, :order_attr, :query
+        :order_dir, :order_attr, :query, :price
       )
     rescue ActionController::ParameterMissing
       {}

@@ -20,6 +20,7 @@ class Domain < ActiveRecord::Base
   scope :inactive, ->{ where active: false }
 
   scope :filter_by_query, ->(query){ where('name LIKE :query', query: "%#{query}%") }
+  scope :filter_by_price, ->(range){ where(price: range) }
 
   def self.generate_csv_file
     domains = self.all

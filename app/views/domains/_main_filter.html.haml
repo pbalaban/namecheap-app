@@ -3,19 +3,25 @@
     .title{ class: (:hidden if @search.filter_enabled?) } Show filter
     .title{ class: (:hidden unless @search.filter_enabled?) } Hide filter
   .panel-body{ class: (:hidden unless @search.filter_enabled?) }
-    = form_for @search, url: root_path, method: :get, role: :form do |f|
-      .form-group
-        = f.hidden_field :order_attr
-        = f.hidden_field :order_dir
-      .form-group
-        = f.label :query, 'Query: '
-        = f.text_field :query
-      .form-group.clearfix.checkbox
+    = form_for @search, url: root_path, method: :get, role: :form, class: :row do |f|
+      = f.hidden_field :order_attr
+      = f.hidden_field :order_dir
+
+      .form-group.col-xs-5
+        = f.text_field :query, class: 'form-control', placeholder: 'Search query'
+
+      .form-group.col-xs-4.price-filter
+        %b= number_to_currency @search.min_price
+        - data_opts = { :"slider-min" => @search.min_price, :"slider-max" => @search.max_price, :"slider-step" => 5, :"slider-value" => "[#{@search.price}]" }
+        = f.text_field :price, class: 'form-control', data: data_opts
+        %b= number_to_currency @search.max_price
+
+      .form-group.clearfix.col-xs-2.tld-filter
         - @search.all_tld.each do |name|
           .tld-item.pull-left
-            %label
+            %label.checkbox-inline
               = f.check_box :tld, { multiple: true }, name, nil
               = name
 
-      .form-group
+      .form-group.col-xs-1
         = f.submit 'Search', class: 'btn btn-info pull-right'
