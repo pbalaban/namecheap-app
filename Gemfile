@@ -26,6 +26,8 @@ gem 'mailgun_rails'
 gem 'kaminari'
 gem 'searchlight'
 
+gem 'whenever', require: false
+
 group :production do
   gem 'unicorn'
 end

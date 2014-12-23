@@ -3,7 +3,7 @@ class Domain < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
 
   ## Associations
-  has_many :category_domains
+  has_many :category_domains, dependent: :destroy
   has_many :categories, through: :category_domains
 
   ## Validations
