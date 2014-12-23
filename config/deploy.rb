@@ -8,9 +8,5 @@ ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :linked_files, fetch(:linked_files, []).push(*%w{config/secrets.yml config/database.yml config/settings/production.yml})
 set :linked_dirs, fetch(:linked_dirs, []).push(*%w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system})
 
-after 'deploy:publishing', 'deploy:restart'
-namespace :deploy do
-  task :restart do
-    invoke 'unicorn:legacy_restart'
-  end
-end
+after 'deploy:publishing', 'unicorn:legacy_restart'
+after 'deploy:finished', 'unicorn:restart'
