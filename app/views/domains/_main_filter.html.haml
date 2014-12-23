@@ -1,9 +1,12 @@
 .main-filter.panel.panel-primary
   .panel-heading
-    .title{ class: (:hidden if params[:domain_search]) } Show filter
-    .title{ class: (:hidden unless params[:domain_search]) } Hide filter
-  .panel-body{ class: (:hidden unless params[:domain_search]) }
+    .title{ class: (:hidden if @search.filter_enabled?) } Show filter
+    .title{ class: (:hidden unless @search.filter_enabled?) } Hide filter
+  .panel-body{ class: (:hidden unless @search.filter_enabled?) }
     = form_for @search, url: root_path, method: :get, role: :form do |f|
+      .form-group
+        = f.hidden_field :order_attr
+        = f.hidden_field :order_dir
       .form-group
         = f.label :tld, "Tld:"
         - @search.all_tld.each do |name|

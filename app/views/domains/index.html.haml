@@ -4,12 +4,12 @@
 %table.table.table-striped
   %thead
     %tr
-      %th Domain name
-      %th TLD
+      %th= sortable_header_for :name
+      %th= sortable_header_for :tld
       %th Listed On
-      %th Closing On
+      %th= sortable_header_for :closing_on
       %th Domain Expires
-      %th Price
+      %th= sortable_header_for :price
       %th User
       %th Categories
   %tbody

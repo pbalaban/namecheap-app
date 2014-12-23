@@ -44,4 +44,17 @@ module ApplicationHelper
     url = MARKETPLACE_BY_USER_URL.gsub(/%\w*%/, '%ID%' => remote_user)
     external_link_to remote_user, url
   end
+
+  def sortable_header_for attr
+    title = Domain.human_attribute_name(attr)
+
+    order_class = 'fa-sort'
+    order_class << "-alpha-#{@search.order_dir}" if @search.order_attr.eql?(attr)
+
+    url_params = (params[:domain_search] || {}).dup
+    url_params.merge!(order_attr: attr)
+    url_params.merge!(order_dir: @search.reverse_order_dir_for(attr))
+
+    join_fa_icon title, order_class, root_path(domain_search: url_params)
+  end
 end
