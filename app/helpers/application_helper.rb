@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def date_closing_tooltip_for date
     return nil if date.blank?
-    return date_tooltip_for(date) if date > 1.day.since
+    return date_tooltip_for(date) if date > 1.day.since.midnight
 
     if date < 1.hour.since
       opts = { toggle: :tooltip, title: date.strftime('%I:%M %p') }
