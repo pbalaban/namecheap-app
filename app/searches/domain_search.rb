@@ -56,8 +56,6 @@ class DomainSearch < Searchlight::Search
   end
 
   def filter_enabled?
-    p self.tld
-    p self.query
     [self.tld, self.query].any?(&:present?) || !self.price.eql?(self.default_prices)
   end
 end
