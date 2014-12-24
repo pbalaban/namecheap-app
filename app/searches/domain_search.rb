@@ -1,5 +1,5 @@
 class DomainSearch < Searchlight::Search
-  search_on Domain.active.includes(:categories)
+  search_on ->{ Domain.active.includes(:categories) }
   searches :tld, :query, :price, :order_attr, :order_dir
 
   def tld
