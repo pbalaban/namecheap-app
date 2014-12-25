@@ -13,7 +13,7 @@ gem 'haml-rails'
 
 gem 'rails-assets-jquery'
 gem 'rails-assets-jquery-ujs'
-gem 'rails-assets-bootstrap-sass-official'
+gem 'rails-assets-bootstrap'
 gem 'rails-assets-font-awesome'
 gem 'rails-assets-seiyria-bootstrap-slider'
 

@@ -167,8 +167,6 @@ GEM
       sprockets-rails (~> 2.0)
     rails-assets-bootstrap (3.3.1)
       rails-assets-jquery (>= 1.9.0)
-    rails-assets-bootstrap-sass-official (3.3.1)
-      rails-assets-jquery (>= 1.9.0)
     rails-assets-font-awesome (4.2.0)
     rails-assets-jquery (2.1.1)
     rails-assets-jquery-bridget (1.1.0)
@@ -281,7 +279,7 @@ DEPENDENCIES
   pry-rails
   quiet_assets
   rails (= 4.1.8)
-  rails-assets-bootstrap-sass-official
+  rails-assets-bootstrap
   rails-assets-font-awesome
   rails-assets-jquery
   rails-assets-jquery-ujs
