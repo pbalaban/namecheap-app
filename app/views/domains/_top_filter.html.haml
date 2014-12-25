@@ -8,6 +8,9 @@
       - if params[:domain_search]
         = link_to '(reset)', root_path
       %span.badge= @filtered_count
+    .well.well-sm.pull-left
+      Last updated date:
+      = date_tooltip_for @last_updated, placement: :bottom
 
   .pull-right
     - csv_download_opts = { format: :csv }.merge params.slice(:domain_search)
