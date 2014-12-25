@@ -1,10 +1,10 @@
 module ApplicationHelper
   include Constants
 
-  def date_tooltip_for date
+  def date_tooltip_for date, extra_opts = {}
     return nil if date.blank?
 
-    opts = { toggle: :tooltip, title: date.strftime('%I:%M %p') }
+    opts = { toggle: :tooltip, title: date.strftime('%I:%M %p %Z') }.merge(extra_opts)
     content_tag(:span, date.strftime('%b %d, %Y'), data: opts)
   end
 
@@ -13,11 +13,11 @@ module ApplicationHelper
     return date_tooltip_for(date) if date > 1.day.since.midnight
 
     if date < 1.hour.since
-      opts = { toggle: :tooltip, title: date.strftime('%I:%M %p') }
+      opts = { toggle: :tooltip, title: date.strftime('%I:%M %p %Z') }
       content_tag(:span, time_ago_in_words(date), data: opts)
     else
       opts = { toggle: :tooltip, title: 'Today' }
-      content_tag(:span, date.strftime('%I:%M %p'), data: opts)
+      content_tag(:span, date.strftime('%I:%M %p %Z'), data: opts)
     end
   end
 
