@@ -83,4 +83,6 @@ Rails.application.configure do
 
   config.middleware.use ExceptionNotification::Rack,
     email: Settings.exception_notification.email_config.to_h
+
+  config.ember.variant = :production
 end

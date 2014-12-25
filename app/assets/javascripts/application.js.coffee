@@ -2,6 +2,13 @@
 #= require jquery-ujs
 #= require bootstrap
 #= require seiyria-bootstrap-slider
+#= require handlebars
+#= require ember
+#= require ember-data
+#= require_self
+#= require app
+
+window.App = Ember.Application.create()
 
 $ ->
   $('[data-toggle="tooltip"]').tooltip()

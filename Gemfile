@@ -11,11 +11,16 @@ gem 'sass-rails', '~> 4.0.5'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'haml-rails'
 
+gem 'ember-rails'
+gem 'ember-source'
+gem 'emblem-rails'
+
 gem 'rails-assets-jquery'
 gem 'rails-assets-jquery-ujs'
 gem 'rails-assets-bootstrap'
 gem 'rails-assets-font-awesome'
 gem 'rails-assets-seiyria-bootstrap-slider'
+gem 'rails-assets-ember-addons--bootstrap-for-ember'
 
 gem 'nokogiri'
 gem 'rails_config'
