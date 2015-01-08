@@ -29,7 +29,7 @@ gem 'searchlight'
 
 gem 'whenever', require: false
 
-group :production do
+group :production, :staging do
   gem 'unicorn'
 end
 

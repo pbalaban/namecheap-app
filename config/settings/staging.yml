@@ -3,4 +3,4 @@ mailgun:
 
 exception_notification:
   email_config:
-    email_prefix: "[NamecheapApp Production]"
+    email_prefix: "[NamecheapApp Staging]"

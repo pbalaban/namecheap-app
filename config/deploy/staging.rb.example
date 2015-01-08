@@ -7,4 +7,4 @@ server 'example',
     auth_methods: %w(publickey)
   }
 
-set :linked_files, fetch(:linked_files, []).push('config/settings/production.yml')
+set :linked_files, fetch(:linked_files, []).push('config/settings/staging.yml')

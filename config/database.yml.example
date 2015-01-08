@@ -4,14 +4,20 @@ default: &default
   pool: 5
   username: joss
   password:
+  database: namecheap-app_development
 
 development:
   <<: *default
-  database: namecheap-app_development
 
 test:
   <<: *default
   database: namecheap-app_test
+
+staging:
+  <<: *default
+  database: namecheap-app_staging
+  username: namecheap-app
+  password: <%= ENV['NAMECHEAP-APP_DATABASE_PASSWORD'] %>
 
 production:
   <<: *default
