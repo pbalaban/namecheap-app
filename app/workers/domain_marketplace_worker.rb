@@ -28,10 +28,13 @@ class DomainMarketplaceWorker
       Domain.transaction do
         listings.each do |listing|
           attrs = domain_attributes(listing)
-          document_ids << (Domain.find_by(name: attrs[:name]) || Domain.create(attrs)).id
+          founded_domain = Domain.find_by(attrs.slice(:name, :price))
+          document_ids << (founded_domain || Domain.create(attrs)).id
         end
       end
-      document_ids.compact.each{ |id| DomainListingInfoWorker.perform_async(id) }
+      Domain.inactive.where(id: document_ids.compact).pluck(:id).uniq.each do |id|
+        DomainListingInfoWorker.perform_async(id)
+      end
 
       return if document.css(INDEX_NEXT_PAGE_SELECTOR).blank?
     end
