@@ -5,7 +5,7 @@ class DomainMarketplaceWorker
   include Exceptions
   include Sidekiq::Worker
 
-  sidekiq_options retry: false, queue: :market
+  sidekiq_options retry: false, queue: :often
 
   def perform opts = {}
     opts.symbolize_keys!.reverse_merge!(

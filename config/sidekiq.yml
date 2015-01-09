@@ -1,6 +1,11 @@
 ---
-:concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid
+:concurrency: 3
 :queues:
-  - [market, 1]
-  - [listing_info, 4]
+  - [often, 7]
+  - [default, 5]
+  - [seldom, 3]
+staging:
+  :concurrency: 5
+production:
+  :concurrency: 3
