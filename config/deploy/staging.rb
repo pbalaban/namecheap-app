@@ -1,8 +1,8 @@
-server 'example',
-  user: 'user',
+server '54.68.42.238',
+  user: 'ubuntu',
   roles: %w{web app db},
   ssh_options: {
-    keys: %w(path/to/ssh_key),
+    keys: %w(~/.ssh/aws-pbalaban.pem),
     forward_agent: true,
     auth_methods: %w(publickey)
   }
