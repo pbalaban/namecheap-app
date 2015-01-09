@@ -1,6 +1,6 @@
 set :output, "#{path}/log/cron.log"
 
-## 4AM EST == 9AM UTC
-every 1.day, at: "9:00am" do
+## 6AM EST == 11AM UTC == 3AM PST == 1PM Kiev
+every 1.day, at: "06:00am" do
   rake 'cron:daily'
 end
