@@ -10,4 +10,16 @@ module Exceptions
       "arguments: #{self.params}"
     end
   end
+
+  class ListingUrlBlank < StandardError
+    attr_reader :domain_id
+
+    def initialize domain_id
+      @domain_id = domain_id
+    end
+
+    def message
+      "Listing url blank for domain_id: #{self.domain_id}"
+    end
+  end
 end

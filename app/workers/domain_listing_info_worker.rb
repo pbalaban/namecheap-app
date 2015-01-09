@@ -2,6 +2,7 @@ require 'open-uri'
 
 class DomainListingInfoWorker
   include Constants
+  include Exceptions
   include Sidekiq::Worker
 
   sidekiq_options retry: false, queue: :seldom
@@ -9,7 +10,7 @@ class DomainListingInfoWorker
   def perform domain_id
     @domain = Domain.find(domain_id)
     return if @domain.active?
-    raise 'Domain listing_url is blank' unless @domain.listing_url
+    raise ListingUrlBlankPage.new(domain_id) unless @domain.listing_url
 
     @domain.update(listing_info)
   end
