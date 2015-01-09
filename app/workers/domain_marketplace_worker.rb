@@ -9,13 +9,12 @@ class DomainMarketplaceWorker
 
   def perform opts = {}
     opts.symbolize_keys!.reverse_merge!(
-      min_price: nil, max_price: 50, first_page: 1, keyword: nil
+      min_price: 0, max_price: 50, first_page: 1
     )
     search_params = {
       '%PAGE%' => 1,
       '%MINPRICERANGE%' => opts[:min_price],
-      '%MAXPRICERANGE%' => opts[:max_price],
-      '%KEYWORD%' => opts[:keyword]
+      '%MAXPRICERANGE%' => opts[:max_price]
     }
 
     opts[:first_page].upto(50) do |current_page|
