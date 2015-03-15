@@ -41,7 +41,6 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-unicorn'
-  gem 'capistrano-sidekiq'
 
   gem 'guard-sidekiq', require: false
   gem 'guard-rails', require: false

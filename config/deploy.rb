@@ -11,7 +11,5 @@ ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :linked_files, fetch(:linked_files, []).push(*EXTRA_LINKED_FILES)
 set :linked_dirs, fetch(:linked_dirs, []).push(*EXTRA_LINKED_DIRS)
 
-set :sidekiq_default_hooks, -> { false }
-
 after 'deploy:publishing', 'unicorn:legacy_restart'
 after 'deploy:finished', 'unicorn:restart'
