@@ -1,5 +1,5 @@
 class ImportCategories
-  include Constants
+  # include Constants
 
   def self.perform
     document = Nokogiri::HTML(open(MARKETPLACE_INDEX_URL))

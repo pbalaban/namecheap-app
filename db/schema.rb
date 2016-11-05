@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217200112) do
+ActiveRecord::Schema.define(version: 20161031191402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 20141217200112) do
   add_index "category_domains", ["category_id", "domain_id"], name: "index_category_domains_on_category_id_and_domain_id", unique: true, using: :btree
   add_index "category_domains", ["category_id"], name: "index_category_domains_on_category_id", using: :btree
   add_index "category_domains", ["domain_id"], name: "index_category_domains_on_domain_id", using: :btree
+
+  create_table "churches", force: true do |t|
+    t.integer  "remote_id"
+    t.string   "title"
+    t.string   "breadcrumb"
+    t.text     "html"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "domains", force: true do |t|
     t.string   "name"
