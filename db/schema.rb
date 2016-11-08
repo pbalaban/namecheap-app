@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(version: 20161031191402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "categories", force: true do |t|
-    t.string   "name"
-    t.string   "remote_id"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "remote_id",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "category_domains", force: true do |t|
+  create_table "category_domains", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "domain_id"
     t.datetime "created_at"
@@ -34,27 +34,27 @@ ActiveRecord::Schema.define(version: 20161031191402) do
   add_index "category_domains", ["category_id"], name: "index_category_domains_on_category_id", using: :btree
   add_index "category_domains", ["domain_id"], name: "index_category_domains_on_domain_id", using: :btree
 
-  create_table "churches", force: true do |t|
+  create_table "churches", force: :cascade do |t|
     t.integer  "remote_id"
-    t.string   "title"
-    t.string   "breadcrumb"
+    t.string   "title",      limit: 255
+    t.string   "breadcrumb", limit: 255
     t.text     "html"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "domains", force: true do |t|
-    t.string   "name"
-    t.string   "tld"
-    t.string   "listing_url"
-    t.decimal  "price",       precision: 8, scale: 2
+  create_table "domains", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "tld",         limit: 255
+    t.string   "listing_url", limit: 255
+    t.decimal  "price",                   precision: 8, scale: 2
     t.datetime "closing_on"
     t.datetime "listed_on"
     t.datetime "expires_on"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",                              default: false, null: false
-    t.string   "remote_user"
+    t.boolean  "active",                                          default: false, null: false
+    t.string   "remote_user", limit: 255
   end
 
 end
