@@ -26,6 +26,7 @@ gem 'timeliness'
 gem 'mailgun_rails'
 gem 'kaminari'
 gem 'searchlight'
+gem 'thread'
 
 gem 'whenever', require: false
 
