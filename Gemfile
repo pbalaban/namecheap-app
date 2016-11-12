@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-source 'https://rails-assets.org'
 
 ruby '2.1.5'
 
@@ -11,11 +10,13 @@ gem 'sass-rails', '~> 4.0.5'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'haml-rails'
 
-gem 'rails-assets-jquery'
-gem 'rails-assets-jquery-ujs'
-gem 'rails-assets-bootstrap'
-gem 'rails-assets-font-awesome'
-gem 'rails-assets-seiyria-bootstrap-slider'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-jquery'
+  gem 'rails-assets-jquery-ujs'
+  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-font-awesome'
+  gem 'rails-assets-seiyria-bootstrap-slider'
+end
 
 gem 'nokogiri'
 gem 'rails_config'
@@ -27,6 +28,8 @@ gem 'mailgun_rails'
 gem 'kaminari'
 gem 'searchlight'
 gem 'thread'
+gem 'anemone'
+gem 'htmlentities'
 
 gem 'whenever', require: false
 

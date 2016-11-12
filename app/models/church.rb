@@ -1,19 +1,19 @@
 class Church < ActiveRecord::Base
   include ScrapperMethods
 
-  VALID_EMAIL_REGEX = /[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/i
-  DETAILS_ATTRS = %i(street city state country diocese rite language contact website email phone fax)
+  DETAILS_ATTRS = %i(street city state country diocese rite language contact website phone fax)
 
   serialize :details, HashSerializer
+  serialize :emails, JSON
   store_accessor :details, *DETAILS_ATTRS
 
   validates :remote_id, uniqueness: true
 
+  scope :with_website, -> { where.not("details -> 'website' ? ''") }
   scope :search_details_for, -> (key, value) do
     where('details -> :key ? :value', key: key, value: value)
   end
-
-  default_scope -> { order(:remote_id) }
+  scope :ordered, -> { order(:remote_id) }
 
 
   def self.generate_csv(churches)
@@ -28,7 +28,10 @@ class Church < ActiveRecord::Base
   end
 
   def self.csv_header
-    %w(Church-ID Church-Name Street-Name Town/City State/County Country Diocese Rite Language ContactName Website Email Phone-No. Fax-No)
+    %w(
+      Church-ID Church-Name Street-Name Town/City State/County Country Diocese Rite
+      Language ContactName Website Phone-No. Fax-No Main-Email All-Emails
+    )
   end
 
   def nok_html
@@ -60,20 +63,38 @@ class Church < ActiveRecord::Base
   end
 
   def detect_state
-    self.us? ? self.locations[-2] : nil
+    self.us? ? self.locations[-2] : ''
   end
 
   def detect_diocese
     candidate = self.nok_html.css('#parish_info > a').detect do |link|
       link.attr(:href).match(/fuseaction=display_site_info/)
     end
-    candidate ? candidate.text.strip : nil
+    candidate ? candidate.text.strip : ''
+  end
+
+  def detect_phone
+    self.nok_html.css(
+      "#parish_info span[itemprop='telephone']"
+    ).text.to_s.gsub(/phone\:\s+/i, '')
+  end
+
+  def main_email
+    MainEmailDetector.new(self).winner
+  end
+
+  def all_emails
+    self.emails.sort_by do |email, attrs|
+      attrs['count'.freeze]
+    end.reverse.map do |email, attrs|
+      email_row(email, attrs['count'.freeze], attrs['origin'.freeze])
+    end#.join("\n")
   end
 
   def to_csv
-    self.attributes.slice(
-      'remote_id'.freeze, 'title'.freeze
-    ).values + self.details.slice(*DETAILS_ATTRS).values
+    self.attributes.slice('remote_id'.freeze, 'title'.freeze).values +
+      self.details.slice(*DETAILS_ATTRS).values +
+      [self.main_email] + self.all_emails
   end
 
   def update_details
@@ -87,9 +108,8 @@ class Church < ActiveRecord::Base
         rite: self.nok_html.css("#parish_info span[itemprop='rite']").text,
         language: self.nok_html.css("#parish_info span[itemprop='language']").text,
         contact: self.nok_html.css("#parish_info span[itemprop='contactPoints']").text,
-        website: self.nok_html.css("#parish_info a[itemprop='url']").text,
-        email: nil,
-        phone: self.nok_html.css("#parish_info span[itemprop='telephone']").text,
+        website: self.nok_html.css("#parish_info a[itemprop='url']").attr(:href),
+        phone: self.detect_phone,
         fax: self.nok_html.css("#parish_info span[itemprop='faxNumber']").text
       )
     rescue => e
@@ -97,5 +117,9 @@ class Church < ActiveRecord::Base
       p e
       p self.remote_id
     end
+  end
+
+  def email_row(email, count, origin)
+    "#{email} (found: #{count} times and firstly met: #{origin})"
   end
 end

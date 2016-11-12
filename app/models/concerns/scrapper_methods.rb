@@ -2,8 +2,56 @@ require 'thread/pool'
 
 module ScrapperMethods
   extend ActiveSupport::Concern
+  VALID_EMAIL_REGEX = /[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/i
 
   included do
+  end
+
+  def fetch_emails
+    return if self.website.blank? || self.emails.present?
+    result = {}
+
+    begin
+      Timeout.timeout(60) do
+        Anemone.crawl(self.website.to_s.gsub(/www./, ''),
+          depth_limit: 1,
+          accept_cookies: true,
+          user_agent: 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'
+        ) do |anemone|
+          anemone.on_every_page do |page|
+            p page.url
+            origin_path = page.url.path
+            page.doc.text.split("\n").each do |row|
+
+              begin
+                # encoded = row.to_s.encode('UTF-8',
+                #   invalid: :replace, undef: :replace, replace: '?'
+                # )
+                # decoded = HTMLEntities.new.decode(encoded)
+                # email = (decoded.match(VALID_EMAIL_REGEX) || [])[0]
+                email = (row.match(VALID_EMAIL_REGEX) || [])[0]
+
+                next row if email.to_s.match(/\d+@.*/)
+              rescue => e
+                Rails.logger.warn "#{('|' * 100)}---#{remote_id}"
+                Rails.logger.warn e
+                next row
+              end
+
+              if email
+                result[email] ||= { count: 0, origin: origin_path }
+                result[email][:count] += 1
+              end
+            end
+          end
+        end
+      end
+    rescue => e
+      Rails.logger.warn "#{('=' * 100)}---#{remote_id}"
+      Rails.logger.warn e
+    ensure
+      self.update(emails: result)
+    end
   end
 
   module ClassMethods
