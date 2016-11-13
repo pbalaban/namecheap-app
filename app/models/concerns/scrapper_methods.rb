@@ -11,25 +11,25 @@ module ScrapperMethods
     return if self.website.blank? || self.emails.present?
     result = {}
 
+    Rails.logger.info "current-remote_id=#{self.remote_id} started"
+
     begin
       Timeout.timeout(60) do
-        Anemone.crawl(self.website.to_s.gsub(/www./, ''),
-          depth_limit: 1,
-          accept_cookies: true,
-          user_agent: 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'
-        ) do |anemone|
+        url = RestClient.get(self.website).request.redacted_uri.to_s
+        user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'
+
+        Anemone.crawl(url, depth_limit: 1, accept_cookies: true, user_agent: user_agent) do |anemone|
           anemone.on_every_page do |page|
             p page.url
             origin_path = page.url.path
-            page.doc.text.split("\n").each do |row|
 
+            page.body.split("\n").each do |row|
               begin
-                # encoded = row.to_s.encode('UTF-8',
-                #   invalid: :replace, undef: :replace, replace: '?'
-                # )
-                # decoded = HTMLEntities.new.decode(encoded)
-                # email = (decoded.match(VALID_EMAIL_REGEX) || [])[0]
-                email = (row.match(VALID_EMAIL_REGEX) || [])[0]
+                encoded = row.to_s.encode('UTF-8',
+                  invalid: :replace, undef: :replace, replace: '?'
+                )
+                decoded = HTMLEntities.new.decode(encoded)
+                email = (decoded.match(VALID_EMAIL_REGEX) || [])[0]
 
                 next row if email.to_s.match(/\d+@.*/)
               rescue => e
@@ -50,6 +50,7 @@ module ScrapperMethods
       Rails.logger.warn "#{('=' * 100)}---#{remote_id}"
       Rails.logger.warn e
     ensure
+      Rails.logger.info "current-remote_id=#{self.remote_id} finished. #{result.size} results for #{self.website.to_s}"
       self.update(emails: result)
     end
   end
