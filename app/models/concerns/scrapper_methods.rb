@@ -7,6 +7,7 @@ module ScrapperMethods
   included do
   end
 
+
   def fetch_emails
     return if self.website.blank? || self.emails.present?
     result = {}
@@ -19,6 +20,9 @@ module ScrapperMethods
         user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'
 
         Anemone.crawl(url, depth_limit: 1, accept_cookies: true, user_agent: user_agent) do |anemone|
+          # anemone.storage = Anemone::Storage.Redis(db: self.remote_id/100_000)
+          anemone.skip_links_like %r{pdf|file|download}
+
           anemone.on_every_page do |page|
             p page.url
             origin_path = page.url.path
@@ -49,6 +53,7 @@ module ScrapperMethods
     rescue => e
       Rails.logger.warn "#{('=' * 100)}---#{remote_id}"
       Rails.logger.warn e
+      self.update(error: e.to_s)
     ensure
       Rails.logger.info "current-remote_id=#{self.remote_id} finished. #{result.size} results for #{self.website.to_s}"
       self.update(emails: result)

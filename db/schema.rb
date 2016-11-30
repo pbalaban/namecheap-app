@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110204111) do
+ActiveRecord::Schema.define(version: 20161124080804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,13 +36,16 @@ ActiveRecord::Schema.define(version: 20161110204111) do
 
   create_table "churches", force: :cascade do |t|
     t.integer  "remote_id"
-    t.string   "title",      limit: 255
-    t.string   "breadcrumb", limit: 255
+    t.string   "title",        limit: 255
+    t.string   "breadcrumb",   limit: 255
     t.text     "html"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.jsonb    "details",                default: {}, null: false
+    t.jsonb    "details",                  default: {}, null: false
     t.text     "emails"
+    t.string   "error"
+    t.string   "main_email"
+    t.datetime "processed_at"
   end
 
   create_table "domains", force: :cascade do |t|

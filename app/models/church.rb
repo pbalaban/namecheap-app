@@ -14,14 +14,17 @@ class Church < ActiveRecord::Base
     where('details -> :key ? :value', key: key, value: value)
   end
   scope :ordered, -> { order(:remote_id) }
-
+  scope :remote_in, -> (from, to) { where("remote_id > :from AND remote_id < :to", from: from, to: to) }
 
   def self.generate_csv(churches)
     path = Tempfile.new('namecheap_app')
 
     CSV.open(path, "wb") do |csv|
       csv << Church.csv_header
-      churches.each{ |d| csv << d.to_csv }
+      churches.each do |d|
+        csv << d.to_csv
+        # d.update(processed_at: Time.current)
+      end
     end
 
     FileUtils.cp(path, '/home/peter/Desktop/')
@@ -79,16 +82,16 @@ class Church < ActiveRecord::Base
     ).text.to_s.gsub(/phone\:\s+/i, '')
   end
 
-  def main_email
+  def detect_main_email
     MainEmailDetector.new(self).winner
   end
 
   def all_emails
+    return [] unless self.emails.is_a?(Hash)
+
     self.emails.sort_by do |email, attrs|
       attrs['count'.freeze]
-    end.reverse.map do |email, attrs|
-      email_row(email, attrs['count'.freeze], attrs['origin'.freeze])
-    end#.join("\n")
+    end.reverse.map { |email, attrs| email }
   end
 
   def to_csv
@@ -110,7 +113,8 @@ class Church < ActiveRecord::Base
         contact: self.nok_html.css("#parish_info span[itemprop='contactPoints']").text,
         website: self.nok_html.css("#parish_info a[itemprop='url']").attr(:href),
         phone: self.detect_phone,
-        fax: self.nok_html.css("#parish_info span[itemprop='faxNumber']").text
+        fax: self.nok_html.css("#parish_info span[itemprop='faxNumber']").text,
+        main_email: self.detect_main_email
       )
     rescue => e
       p '*************************'
